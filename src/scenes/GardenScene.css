@@ -1,0 +1,393 @@
+.garden-scene {
+  cursor: default;
+}
+
+/* ── Background ── */
+.garden-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #4a90d9 0%,
+    #7cb5e8 25%,
+    #b8d8f8 50%,
+    #d4eaf8 75%,
+    #e0f0e8 100%
+  );
+}
+
+/* ── Branch Structure ── */
+.branch-structure {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── Flowers ── */
+.garden-flowers {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.garden-flower {
+  position: absolute;
+  cursor: pointer;
+  pointer-events: all;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: filter 0.3s ease;
+  transform: translate(-50%, -50%);
+}
+
+.garden-flower:hover {
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.5));
+}
+
+.flower-svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.flower-topic-emoji {
+  font-size: 12px;
+  margin-top: -2px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-full);
+  padding: 1px 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.garden-flower:hover .flower-topic-emoji {
+  opacity: 1;
+}
+
+/* ── Header ── */
+.garden-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: var(--space-lg) var(--space-xl);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, transparent 100%);
+}
+
+.garden-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.garden-count {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 300;
+  margin-top: 2px;
+}
+
+.garden-actions {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.create-flower-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-full);
+  padding: var(--space-sm) var(--space-lg);
+  color: white;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.create-flower-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.garden-back {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  padding: var(--space-sm) var(--space-lg);
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.garden-back:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Creator Overlay ── */
+.creator-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: var(--space-xl);
+}
+
+/* ── Creator Panel ── */
+.creator-panel {
+  width: min(95vw, 450px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: var(--space-2xl);
+  background: rgba(20, 30, 25, 0.85);
+  border-color: rgba(140, 192, 132, 0.2);
+}
+
+.creator-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: white;
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.creator-section {
+  margin-bottom: var(--space-lg);
+}
+
+.creator-label {
+  display: block;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  margin-bottom: var(--space-sm);
+}
+
+/* ── Color Picker ── */
+.color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.color-option {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.color-option:hover {
+  transform: scale(1.15);
+}
+
+.color-option--active {
+  border-color: white;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3), 0 2px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+/* ── Topic Grid ── */
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+}
+
+.topic-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.topic-option:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.topic-option--active {
+  background: rgba(140, 192, 132, 0.2);
+  border-color: rgba(140, 192, 132, 0.5);
+  color: white;
+}
+
+.topic-emoji {
+  font-size: 1rem;
+}
+
+.topic-name {
+  font-weight: 500;
+}
+
+/* ── Creator Note ── */
+.creator-note {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+}
+
+/* ── Preview ── */
+.creator-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-lg);
+}
+
+.preview-info {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ── Creator Actions ── */
+.creator-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: flex-end;
+}
+
+.creator-cancel {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.6);
+  padding: var(--space-sm) var(--space-xl);
+  border-radius: var(--radius-full);
+  font-size: 0.9rem;
+}
+
+.creator-cancel:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+}
+
+/* ── Flower Detail ── */
+.flower-detail {
+  width: min(90vw, 320px);
+  padding: var(--space-2xl);
+  background: rgba(20, 30, 25, 0.9);
+  border-color: rgba(140, 192, 132, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  text-align: center;
+}
+
+.detail-flower-svg {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.detail-topic {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: white;
+}
+
+.detail-note {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-style: italic;
+}
+
+.detail-date {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.detail-actions {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.detail-delete {
+  background: rgba(240, 156, 140, 0.15);
+  color: var(--petal-coral);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+}
+
+.detail-delete:hover {
+  background: rgba(240, 156, 140, 0.3);
+}
+
+/* ── Pollen Particles ── */
+.garden-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.pollen {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(244, 211, 94, 0.6);
+  border-radius: 50%;
+  animation: pollen-float linear infinite;
+}
+
+@keyframes pollen-float {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.8;
+    transform: translate(10px, -20px) scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-15px, -60px) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(20px, -120px) scale(0.3);
+  }
+}

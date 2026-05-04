@@ -1,0 +1,115 @@
+.loading-screen {
+  background: linear-gradient(135deg, #0f1923 0%, #1a2a3a 30%, #1e3a2f 60%, #0f1923 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Particles ── */
+.loading-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, rgba(140, 192, 132, 0.6), transparent);
+  border-radius: 50%;
+  animation: particle-float linear infinite;
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+    transform: translateY(-20px) scale(1);
+  }
+  80% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-120px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* ── Content ── */
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xl);
+  z-index: 2;
+}
+
+.loading-icon {
+  filter: drop-shadow(0 0 20px rgba(140, 192, 132, 0.3));
+}
+
+.loading-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 600;
+  color: var(--text-light);
+  letter-spacing: 0.04em;
+  text-shadow: 0 2px 20px rgba(140, 192, 132, 0.3);
+}
+
+/* ── Progress Bar ── */
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+  width: clamp(200px, 50vw, 320px);
+}
+
+.progress-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: visible;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3d7a35, #8cc084, #b8d8a0);
+  border-radius: var(--radius-full);
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px rgba(140, 192, 132, 0.4);
+  position: relative;
+}
+
+.progress-vine {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  height: 20px;
+  pointer-events: none;
+}
+
+.vine-leaf {
+  position: absolute;
+  font-size: 12px;
+  top: 0;
+  animation: leaf-pop 0.5s var(--ease-spring) forwards;
+}
+
+@keyframes leaf-pop {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.loading-hint {
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  color: var(--text-light);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
