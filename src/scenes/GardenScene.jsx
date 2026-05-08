@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { useNavigate } from 'react-router-dom'
 import { useLocalStorage } from '../hooks/useLocalStorage'
@@ -15,11 +15,13 @@ export default function GardenScene() {
   const [flowerNote, setFlowerNote] = useState('')
   const [viewingFlower, setViewingFlower] = useState(null)
 
-  // If no user, redirect to tree
-  if (!user) {
-    navigate('/tree')
-    return null
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate('/tree', { replace: true })
+    }
+  }, [navigate, user])
+
+  if (!user) return null
 
   const createFlower = () => {
     if (!selectedTopic) return
@@ -332,7 +334,7 @@ export default function GardenScene() {
                 {viewingFlower.topic.emoji} {viewingFlower.topic.name}
               </h3>
               {viewingFlower.note && (
-                <p className="detail-note">"{viewingFlower.note}"</p>
+                <p className="detail-note">&quot;{viewingFlower.note}&quot;</p>
               )}
               <p className="detail-date">
                 Plantada el {new Date(viewingFlower.createdAt).toLocaleDateString('es-ES', {
