@@ -6,7 +6,7 @@
 .main-claro {
   position: absolute;
   inset: 0;
-  background-size: cover;
+  background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
   pointer-events: none; /* Allows clicks to pass through to hit areas */
@@ -14,15 +14,18 @@
 }
 
 /* ── Chair ── */
-.main-chair {
+.main-chair-anchor {
   position: absolute;
-  bottom: 20%;
+  bottom: 28%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 5;
+  width: 130px;
+}
+
+.main-chair {
   cursor: pointer;
   transition: filter 0.3s ease;
-  width: 150px; /* Ajusta este tamaño según sea necesario para que la silla se vea bien */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,16 +41,6 @@
   object-fit: contain;
   /* Uncomment to add drop shadow if chair image doesn't have one */
   /* filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3)); */
-}
-
-.chair-bounce {
-  animation: chair-swap 0.3s var(--ease-spring);
-}
-
-@keyframes chair-swap {
-  0% { transform: translateX(-50%) scale(1); }
-  50% { transform: translateX(-50%) scale(0.8) rotate(5deg); }
-  100% { transform: translateX(-50%) scale(1); }
 }
 
 .chair-hint {

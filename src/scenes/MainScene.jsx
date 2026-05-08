@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
 import { useNavigate } from 'react-router-dom'
 import './MainScene.css'
 
@@ -13,16 +13,9 @@ const getSkyBackground = () => {
 export default function MainScene() {
   const navigate = useNavigate()
   const [chairIndex, setChairIndex] = useState(1)
-  const [chairBounce, setChairBounce] = useState(false)
   const [skyImage] = useState(getSkyBackground())
 
-  const cycleChair = () => {
-    setChairBounce(true)
-    setTimeout(() => {
-      setChairIndex((prev) => (prev % 3) + 1) // ciclos 1, 2, 3
-      setChairBounce(false)
-    }, 300)
-  }
+  const cycleChair = () => setChairIndex((prev) => (prev % 3) + 1)
 
   return (
     <motion.div
@@ -37,16 +30,29 @@ export default function MainScene() {
       <div className="main-claro" style={{ backgroundImage: `url('/assets/main/claro 1.png')` }} />
 
       {/* Silla */}
-      <motion.div
-        className={`main-chair ${chairBounce ? 'chair-bounce' : ''}`}
-        onClick={cycleChair}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        title="Cambiar silla"
-      >
-        <img src={`/assets/main/silla ${chairIndex}.png`} alt={`Silla ${chairIndex}`} className="chair-image" />
-        <div className="chair-hint">Silla {chairIndex}</div>
-      </motion.div>
+      <div className="main-chair-anchor">
+        <motion.div
+          className="main-chair"
+          onClick={cycleChair}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          title="Cambiar silla"
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.img
+              key={chairIndex}
+              src={`/assets/main/silla ${chairIndex}.png`}
+              alt={`Silla ${chairIndex}`}
+              className="chair-image"
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.92 }}
+              transition={{ duration: 0.16, ease: 'easeOut' }}
+            />
+          </AnimatePresence>
+          <div className="chair-hint">Silla {chairIndex}</div>
+        </motion.div>
+      </div>
 
       {/* Zonas de Clic Invisibles (Hit Areas) para navegar */}
       {/* Zona Árbol */}
