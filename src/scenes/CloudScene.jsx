@@ -5,11 +5,19 @@ import './CloudScene.css'
 
 const sloganText = "Deja que tus pensamientos florezcan"
 
+const getSkyBackground = () => {
+  const hour = new Date().getHours()
+  if (hour >= 6 && hour < 14) return '/assets/clouds/fondo mañana.png'
+  if (hour >= 14 && hour < 20) return '/assets/clouds/fondo atardecer.png'
+  return '/assets/clouds/fondo noche.png'
+}
+
 export default function CloudScene() {
   const navigate = useNavigate()
   const [displayedText, setDisplayedText] = useState('')
   const [sloganDone, setSloganDone] = useState(false)
   const [showContinue, setShowContinue] = useState(false)
+  const [skyImage] = useState(getSkyBackground())
 
   // Typewriter effect
   useEffect(() => {
@@ -38,28 +46,21 @@ export default function CloudScene() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0, y: 100 }}
       transition={{ duration: 1 }}
+      style={{ backgroundImage: `url('${skyImage}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
-      {/* Sky gradient background */}
-      <div className="sky-gradient" />
-
-      {/* Multiple cloud layers for parallax */}
+      {/* Multiple cloud layers for parallax using user's images */}
       <div className="cloud-layer cloud-layer--far">
-        <div className="cloud cloud--1" />
-        <div className="cloud cloud--2" />
-        <div className="cloud cloud--3" />
+        <img src="/assets/clouds/nube 1.png" alt="Cloud" className="cloud-img cloud-img--1" />
+        <img src="/assets/clouds/nube 2.png" alt="Cloud" className="cloud-img cloud-img--2" />
       </div>
       <div className="cloud-layer cloud-layer--mid">
-        <div className="cloud cloud--4" />
-        <div className="cloud cloud--5" />
-        <div className="cloud cloud--6" />
+        <img src="/assets/clouds/nube 2.png" alt="Cloud" className="cloud-img cloud-img--3" />
+        <img src="/assets/clouds/nube 1.png" alt="Cloud" className="cloud-img cloud-img--4" />
       </div>
       <div className="cloud-layer cloud-layer--near">
-        <div className="cloud cloud--7" />
-        <div className="cloud cloud--8" />
+        <img src="/assets/clouds/nube 1.png" alt="Cloud" className="cloud-img cloud-img--5" />
+        <img src="/assets/clouds/nube 2.png" alt="Cloud" className="cloud-img cloud-img--6" />
       </div>
-
-      {/* Sun glow */}
-      <div className="sun-glow" />
 
       {/* Slogan */}
       <div className="slogan-container">
@@ -102,13 +103,6 @@ export default function CloudScene() {
             </svg>
           </motion.button>
         )}
-      </div>
-
-      {/* Birds */}
-      <div className="birds">
-        <div className="bird bird--1" />
-        <div className="bird bird--2" />
-        <div className="bird bird--3" />
       </div>
     </motion.div>
   )

@@ -1,5 +1,4 @@
 .loading-screen {
-  background: linear-gradient(135deg, #0f1923 0%, #1a2a3a 30%, #1e3a2f 60%, #0f1923 100%);
   display: flex;
   align-items: center;
   justify-content: center;

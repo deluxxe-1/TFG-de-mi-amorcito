@@ -4,36 +4,7 @@
 }
 
 /* ── Sky ── */
-.sky-gradient {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    #1a3a5c 0%,
-    #2a5a8a 15%,
-    #4a90d9 35%,
-    #7cb5e8 55%,
-    #b8d8f8 75%,
-    #f0e6d3 95%
-  );
-}
-
-/* ── Sun ── */
-.sun-glow {
-  position: absolute;
-  top: 8%;
-  right: 15%;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(255, 220, 150, 0.8) 0%, rgba(255, 180, 100, 0.3) 40%, transparent 70%);
-  border-radius: 50%;
-  animation: sun-pulse 4s ease-in-out infinite;
-}
-
-@keyframes sun-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 1; }
-}
+/* Removed .sky-gradient as it's now applied inline based on time */
 
 /* ── Cloud layers ── */
 .cloud-layer {
@@ -46,99 +17,59 @@
 .cloud-layer--mid { opacity: 0.65; }
 .cloud-layer--near { opacity: 0.9; }
 
-.cloud {
+.cloud-img {
   position: absolute;
-  background: var(--cloud-white);
-  border-radius: 100px;
-  filter: blur(2px);
-}
-
-.cloud::before,
-.cloud::after {
-  content: '';
-  position: absolute;
-  background: inherit;
-  border-radius: 50%;
+  object-fit: contain;
+  /* Add subtle float to clouds */
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
 }
 
 /* Far layer clouds */
-.cloud--1 {
-  width: 200px; height: 50px;
-  top: 20%; left: -5%;
+.cloud-img--1 {
+  width: 400px;
+  top: 15%; left: -5%;
   animation: cloud-drift 35s linear infinite;
 }
-.cloud--1::before { width: 70px; height: 70px; top: -30px; left: 40px; }
-.cloud--1::after { width: 50px; height: 50px; top: -20px; left: 100px; }
 
-.cloud--2 {
-  width: 160px; height: 40px;
+.cloud-img--2 {
+  width: 350px;
   top: 35%; left: 60%;
   animation: cloud-drift 45s linear infinite;
   animation-delay: -15s;
 }
-.cloud--2::before { width: 60px; height: 60px; top: -25px; left: 30px; }
-.cloud--2::after { width: 40px; height: 40px; top: -15px; left: 90px; }
-
-.cloud--3 {
-  width: 180px; height: 45px;
-  top: 15%; left: 30%;
-  animation: cloud-drift 50s linear infinite;
-  animation-delay: -25s;
-}
-.cloud--3::before { width: 65px; height: 65px; top: -28px; left: 50px; }
-.cloud--3::after { width: 45px; height: 45px; top: -18px; left: 110px; }
 
 /* Mid layer clouds */
-.cloud--4 {
-  width: 250px; height: 60px;
+.cloud-img--3 {
+  width: 500px;
   top: 40%; left: -10%;
   animation: cloud-drift 28s linear infinite;
   animation-delay: -8s;
 }
-.cloud--4::before { width: 90px; height: 90px; top: -40px; left: 50px; }
-.cloud--4::after { width: 70px; height: 70px; top: -30px; left: 130px; }
 
-.cloud--5 {
-  width: 220px; height: 55px;
+.cloud-img--4 {
+  width: 450px;
   top: 55%; left: 40%;
   animation: cloud-drift 32s linear infinite;
   animation-delay: -20s;
 }
-.cloud--5::before { width: 80px; height: 80px; top: -35px; left: 60px; }
-.cloud--5::after { width: 55px; height: 55px; top: -22px; left: 140px; }
-
-.cloud--6 {
-  width: 190px; height: 48px;
-  top: 30%; left: 75%;
-  animation: cloud-drift 38s linear infinite;
-  animation-delay: -12s;
-}
-.cloud--6::before { width: 70px; height: 70px; top: -30px; left: 40px; }
-.cloud--6::after { width: 50px; height: 50px; top: -20px; left: 110px; }
 
 /* Near layer clouds */
-.cloud--7 {
-  width: 300px; height: 70px;
+.cloud-img--5 {
+  width: 600px;
   top: 65%; left: -15%;
   animation: cloud-drift 22s linear infinite;
-  filter: blur(1px);
 }
-.cloud--7::before { width: 110px; height: 110px; top: -50px; left: 60px; }
-.cloud--7::after { width: 80px; height: 80px; top: -35px; left: 170px; }
 
-.cloud--8 {
-  width: 280px; height: 65px;
+.cloud-img--6 {
+  width: 550px;
   top: 75%; left: 50%;
   animation: cloud-drift 25s linear infinite;
   animation-delay: -10s;
-  filter: blur(1px);
 }
-.cloud--8::before { width: 100px; height: 100px; top: -45px; left: 70px; }
-.cloud--8::after { width: 75px; height: 75px; top: -32px; left: 160px; }
 
 @keyframes cloud-drift {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(100vw + 300px)); }
+  0% { transform: translateX(-10vw); }
+  100% { transform: translateX(calc(100vw + 600px)); }
 }
 
 /* ── Slogan ── */
@@ -160,8 +91,9 @@
   font-weight: 600;
   color: white;
   text-shadow:
-    0 2px 10px rgba(0, 0, 0, 0.15),
-    0 0 40px rgba(255, 255, 255, 0.2);
+    0 2px 10px rgba(0, 0, 0, 0.5),
+    0 4px 20px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(0, 0, 0, 0.3);
   text-align: center;
   line-height: 1.3;
   max-width: 700px;
@@ -182,10 +114,11 @@
 .slogan-subtitle {
   font-family: var(--font-primary);
   font-size: clamp(0.9rem, 2vw, 1.1rem);
-  color: rgba(255, 255, 255, 0.75);
-  font-weight: 300;
+  color: white;
+  font-weight: 400;
   letter-spacing: 0.05em;
   text-align: center;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 /* ── Continue Button ── */
@@ -222,72 +155,3 @@
   50% { transform: translateY(4px); }
 }
 
-/* ── Birds ── */
-.birds {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 5;
-}
-
-.bird {
-  position: absolute;
-  width: 20px;
-  height: 6px;
-}
-
-.bird::before,
-.bird::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  background: #2c3e50;
-  width: 10px;
-  height: 2px;
-  border-radius: 2px;
-}
-
-.bird::before {
-  left: 0;
-  transform-origin: right center;
-  animation: bird-flap 0.8s ease-in-out infinite alternate;
-}
-
-.bird::after {
-  right: 0;
-  transform-origin: left center;
-  animation: bird-flap 0.8s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes bird-flap {
-  0% { transform: rotate(-20deg); }
-  100% { transform: rotate(20deg); }
-}
-
-.bird--1 {
-  top: 12%;
-  left: 20%;
-  animation: bird-fly 12s linear infinite;
-  transform: scale(0.7);
-}
-
-.bird--2 {
-  top: 18%;
-  left: 40%;
-  animation: bird-fly 15s linear infinite;
-  animation-delay: -5s;
-  transform: scale(0.5);
-}
-
-.bird--3 {
-  top: 10%;
-  left: 65%;
-  animation: bird-fly 18s linear infinite;
-  animation-delay: -8s;
-  transform: scale(0.6);
-}
-
-@keyframes bird-fly {
-  0% { transform: translateX(-50px); }
-  100% { transform: translateX(calc(100vw + 50px)); }
-}
