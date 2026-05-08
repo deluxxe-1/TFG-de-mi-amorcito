@@ -4,6 +4,15 @@ import { useNavigate } from 'react-router-dom'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 import './TreeScene.css'
 
+async function hashPassword(password) {
+  const encoder = new TextEncoder()
+  const data = encoder.encode(password)
+  const hashBuffer = await window.crypto.subtle.digest('SHA-256', data)
+  return Array.from(new Uint8Array(hashBuffer))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('')
+}
+
 export default function TreeScene() {
   const navigate = useNavigate()
   const [user, setUser] = useLocalStorage('jardin-user', null)
@@ -13,7 +22,7 @@ export default function TreeScene() {
   const [isLogin, setIsLogin] = useState(false)
   const [climbing, setClimbing] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
 
@@ -26,9 +35,23 @@ export default function TreeScene() {
       return
     }
 
+    const passwordHash = await hashPassword(password)
+
     if (isLogin) {
       // Check stored user
-      if (user && user.name === name.trim() && user.password === password) {
+      const hasLegacyPassword = Boolean(user?.password)
+      const passwordMatches = hasLegacyPassword
+        ? user.password === password
+        : user?.passwordHash === passwordHash
+
+      if (user && user.name === name.trim() && passwordMatches) {
+        if (hasLegacyPassword) {
+          setUser({
+            ...user,
+            passwordHash,
+            password: undefined,
+          })
+        }
         setClimbing(true)
         setTimeout(() => navigate('/garden'), 1500)
       } else {
@@ -38,7 +61,7 @@ export default function TreeScene() {
       // Register
       const newUser = {
         name: name.trim(),
-        password: password,
+        passwordHash,
         createdAt: new Date().toISOString(),
       }
       setUser(newUser)
