@@ -3,10 +3,18 @@ import { motion } from 'motion/react'
 import { useNavigate } from 'react-router-dom'
 import './LoadingScreen.css'
 
+const getSkyBackground = () => {
+  const hour = new Date().getHours()
+  if (hour >= 6 && hour < 14) return '/assets/clouds/fondo mañana.png'
+  if (hour >= 14 && hour < 20) return '/assets/clouds/fondo atardecer.png'
+  return '/assets/clouds/fondo noche.png'
+}
+
 export default function LoadingScreen() {
   const navigate = useNavigate()
   const [progress, setProgress] = useState(0)
   const [showTitle, setShowTitle] = useState(false)
+  const [skyImage] = useState(getSkyBackground())
 
   useEffect(() => {
     // Show title after a brief delay
@@ -44,6 +52,11 @@ export default function LoadingScreen() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.8 }}
+      style={{
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${skyImage}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
     >
       {/* Background particles */}
       <div className="loading-particles">
